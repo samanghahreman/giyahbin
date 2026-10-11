@@ -26,6 +26,18 @@ PR.forEach(function (pr) {
 ['nerium-oleander', 'conium-maculatum', 'cicuta-virosa', 'datura-stramonium', 'atropa-belladonna', 'ricinus-communis', 'colchicum-spp-', 'taxus-baccata', 'amanita-phalloides', 'digitalis-purpurea', 'aconitum-spp-', 'hyoscyamus-niger', 'veratrum-album']
   .forEach(function (k) { ok(ids[k], 'key toxic plant missing ' + k); });
 
+// ۱b) تصاویر: هر گیاه عکس + اعتبار (عکاس و مجوز آزاد) دارد و حجم کل کم است
+eval(fs.readFileSync(d + 'credits.js', 'utf8') + ';global.CR=CREDITS;');
+var imgBytes = 0, noImg = [];
+P.forEach(function (p) {
+  var f = d + 'img/' + p.id + '.webp';
+  if (!fs.existsSync(f)) { noImg.push(p.id); return; }
+  var sz = fs.statSync(f).size; imgBytes += sz; ok(sz > 1500 && sz < 60000, p.id + ' image size ' + sz);
+  ok(CR[p.id] && CR[p.id][0] && /^(CC BY|CC0|Public domain|PD|Attribution)/i.test(CR[p.id][1]), p.id + ' credit/license ' + JSON.stringify(CR[p.id]));
+});
+ok(noImg.length <= 6, 'too many plants without image: ' + noImg.join(','));
+console.log('images', (P.length - noImg.length) + '/' + P.length, '|', Math.round(imgBytes / 1024) + ' KB', noImg.length ? '| without: ' + noImg.join(', ') : '');
+
 // ۲) منطق راهنما (همان الگوریتم app.js)
 function guide(sel) {
   var rows = [];

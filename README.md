@@ -25,6 +25,9 @@ An ultra-light Android app (≈1 MB, zero dependencies) that identifies plants f
 ```
 هر push روی `main` در GitHub Actions یک APK می‌سازد؛ با تگ `v*` در Releases منتشر می‌شود. (APK با امضای دیباگ برای نصب مستقیم است؛ برای فروشگاه کلید خودتان را تنظیم کنید.)
 
+## تصاویر
+عکس ۱۲۳ گیاه از Wikimedia Commons با مجوزهای آزاد (CC BY / CC BY-SA / CC0 / مالکیت عمومی) است و نام عکاس زیر هر عکس در برنامه آمده است. فهرست کامل: [data/CREDITS.md](data/CREDITS.md). دریافت: `python tools/fetch_images.py`.
+
 ## داده
 `app/src/main/assets/www/data.js` – ورودی تازه با Pull Request اضافه کنید. منابع و محدودیت‌ها: [data/SOURCES.md](data/SOURCES.md).
 

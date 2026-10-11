@@ -24,7 +24,8 @@ function fill(){
   PROVINCES.forEach(function(x){var o=document.createElement("option");o.value=x[0];o.textContent=x[1];p.appendChild(o)});
   p.value=ls("gb_prov")||"";
 }
-function row(x){return '<li class="l'+x.lvl+'" data-id="'+x.id+'"><div><b>'+esc(x.fa)+'</b><small>'+esc(x.sci.split(";")[0])+'</small></div><span class="tag t'+x.lvl+'">'+LV[x.lvl][1]+" "+TAG[x.lvl]+'</span></li>'}
+function thumbImg(id){return '<img class="th" loading="lazy" alt="" src="img/'+id+'.webp" onerror="this.remove()">'}
+function row(x){return '<li class="l'+x.lvl+'" data-id="'+x.id+'">'+thumbImg(x.id)+'<div><b>'+esc(x.fa)+'</b><small>'+esc(x.sci.split(";")[0])+'</small></div><span class="tag t'+x.lvl+'">'+LV[x.lvl][1]+" "+TAG[x.lvl]+'</span></li>'}
 function render(){
   var pv=$("prov").value,lv=$("lvl").value,q=norm($("q").value);
   ls("gb_prov",pv);
@@ -49,10 +50,15 @@ function firstAid(l){
   return s+'</div>';
 }
 function card(t,v){return v&&v!=="—"?'<div class="card"><h4>'+t+'</h4>'+esc(v)+'</div>':""}
+function hero(x){
+  var c=(typeof CREDITS!=="undefined"&&CREDITS[x.id])||null;
+  return '<figure class="hero"><img alt="'+esc(x.fa)+'" src="img/'+x.id+'.webp" onerror="this.parentNode.remove()">'+(c?'<figcaption>عکس: '+esc(c[0])+' · '+esc(c[1])+' · Wikimedia Commons</figcaption>':'')+'</figure>';
+}
 function detail(x,from){
   var info=LV[x.lvl];
   var prov=PROVINCES.filter(function(p){return x.zones.indexOf(p[2])>=0}).map(function(p){return p[1]});
   var h='<button class="back" data-to="'+(from||"home")+'">← بازگشت</button><h2 style="margin:4px 0">'+esc(x.fa)+'</h2><div class="sci">'+esc(x.sci)+" · "+esc(x.en)+" · "+esc(x.fam)+'</div>';
+  h+=hero(x);
   h+='<div class="banner b'+x.lvl+'">'+info[1]+" "+info[0]+'</div>';
   h+=card("شناسایی ظاهری",x.feat)+card("بخش‌های خطرناک / قابل استفاده",x.parts)+card("ماده مؤثر",x.toxin)+card("علائم / نکته",x.sym)+card("شبیه چه گیاهی است؟ (احتیاط)",x.look)+card("توصیه مسافران",x.extra);
   h+=firstAid(x.lvl);
