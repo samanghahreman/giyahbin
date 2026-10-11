@@ -9,7 +9,6 @@
 - Acute Datura stramonium poisoning in East of Iran – https://pubmed.ncbi.nlm.nih.gov/25050235/
 - مطالعهٔ مسمومیت گیاهی اصفهان ۲۰۱۰–۲۰۱۹ (کرچک، تاتوره، خرزهره)
 - Ardestan (Isfahan) ethnobotany – https://jmp.ir/article-1-1770-en.html
-- Pl@ntNet API (شناسایی گونه) – https://my.plantnet.org/doc/api/identify
 - مقایسه با فهرست بلاگ [گل‌ستان](https://www.golsetan.com/blog/poisonous-plants-flowers/): این صفحه تجاری و بیشتر دربارهٔ **حیوانات خانگی** است و خودش ناسازگار است؛ فقط مواردی که برای انسان نیز مستند بودند (مثلاً ویستریا، آماریلیس، دیفن‌باخیا، شمشاد، شوکران، سرخدار) استفاده شد.
 - دانش استاندارد سم‌شناسی گیاهی (آلکالوئیدها، گلیکوزیدهای قلبی، ...) و نام‌های علمی.
 

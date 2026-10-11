@@ -63,3 +63,7 @@ label{display:block;margin:10px 0}
 .pledge p{margin:0 0 6px}.pledge ul{margin:0;padding-right:20px}.pledge li{display:list-item;border:0;background:none;padding:2px 0;margin:0;border-radius:0}.pledge li b{display:inline}
 #alert .calls .call{background:#fff;color:var(--r)!important;box-shadow:none}
 .pledge ul{list-style:disc}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:9px 14px;border-radius:99px;border:2px solid var(--b);background:var(--c);color:var(--t);font-size:15px}
+.chip.on{background:var(--g);border-color:var(--g);color:#fff;font-weight:700}
+@media(prefers-color-scheme:dark){.chip.on{color:#0f1713}}

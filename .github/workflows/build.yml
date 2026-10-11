@@ -14,7 +14,6 @@ jobs:
       - name: Restore signing key
         run: echo "${{ secrets.KEYSTORE_B64 }}" | base64 -d > "$RUNNER_TEMP/release.jks"
       - env:
-          PLANTNET_KEY: ${{ secrets.PLANTNET_KEY }}
           KEYSTORE_PATH: ${{ runner.temp }}/release.jks
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: giyahbin
