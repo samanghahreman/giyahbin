@@ -12,8 +12,8 @@ android {
         applicationId 'ir.giyahbin.app'
         minSdk 29
         targetSdk 35
-        versionCode 7
-        versionName '1.0.6'
+        versionCode 8
+        versionName '1.0.7'
         resConfigs 'fa', 'en'
         // کلید رایگان Pl@ntNet سازنده (اختیاری): -PplantnetKey=... یا متغیر محیطی PLANTNET_KEY
         def pk = (project.findProperty('plantnetKey') ?: System.getenv('PLANTNET_KEY') ?: '').toString()

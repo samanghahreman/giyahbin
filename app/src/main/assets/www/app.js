@@ -5,6 +5,7 @@ var TAG={3:"کشنده",2:"سمی",1:"کم‌خطر",0:"بی‌خطر"};
 var LV={3:["بسیار خطرناک – کشنده","☠"],2:["سمی","⚠"],1:["کم‌خطر / تحریک‌کننده","!"],0:["بی‌خطر (با شناسایی قطعی)","✔"]};
 var DANGER_FAM={Apiaceae:"خانوادهٔ چتریان (هویج، شوکران): چند گونهٔ آن کشنده است",Solanaceae:"خانوادهٔ بادمجانیان: بسیاری از گونه‌ها سمی‌اند",Ranunculaceae:"خانوادهٔ آلاله: بیشتر گونه‌ها سمی‌اند",Apocynaceae:"خانوادهٔ خرزهره: اغلب سمی",Euphorbiaceae:"خانوادهٔ فرفیون: شیره تحریک‌کننده/سمی",Araceae:"خانوادهٔ آروم: کریستال‌های سوزش‌آور",Papaveraceae:"خانوادهٔ خشخاش: آلکالوئیدهای سمی",Amaryllidaceae:"پیازدارها: برخی سمی و برخی خوراکی‌اند",Colchicaceae:"سورنجان: بسیار سمی",Melanthiaceae:"خانوادهٔ خربق: سمی",Amanitaceae:"قارچ‌های آمانیتا: بسیار خطرناک"};
 var cur=null,tt;
+var CALLS='<div class="calls"><a class="call" href="tel:115"><span>📞 اورژانس</span><b>۱۱۵</b></a><a class="call" href="tel:1490"><span>☎ مرکز مسمومیت</span><b>۱۴۹۰</b></a></div>';
 function toast(m){var t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},4000)}
 
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -40,8 +41,9 @@ function render(){
 function firstAid(l){
   if(l<1)return "";
   var s='<div class="card"><h4>اقدام اولیه</h4><ul style="list-style:disc;padding-right:18px"><li style="all:unset;display:list-item">گیاه را از دهان بیرون بیاورید و دهان را با آب بشویید.</li><li style="all:unset;display:list-item">بدون دستور پزشک استفراغ ندهید و شیر/ذغال ندهید.</li><li style="all:unset;display:list-item">نمونهٔ گیاه یا عکس آن را همراه ببرید.</li>';
-  if(l>=2)s+='<li style="all:unset;display:list-item"><b>فوراً تماس: اورژانس <a href="tel:115">۱۱۵</a> یا مرکز مسمومیت <a href="tel:1490">۱۴۹۰</a>.</b></li>';
-  return s+'</ul></div>';
+  s+='</ul>';
+  if(l>=2)s+='<p class="sosT">در صورت خوردن یا تماس، فوراً تماس بگیرید</p>'+CALLS;
+  return s+'</div>';
 }
 function detail(x,extraBanner){
   var info=LV[x.lvl];
@@ -85,7 +87,7 @@ function analyse(res){
 function showAlert(lvl,name,note){
   var a=$("alert");
   a.style.background=lvl>=3?"":"var(--o)";
-  a.innerHTML='<div class="x">'+(lvl>=3?"☠":"⚠")+'</div><h2>'+(lvl>=3?"خطر! گیاه بسیار سمی":"هشدار! گیاه سمی")+'</h2><p style="font-size:19px"><b>'+esc(name)+'</b></p><p>'+esc(note)+'</p><p>به آن دست نزنید، نخورید و کودکان و حیوانات را دور کنید. در صورت خوردن یا تماس: اورژانس <a href="tel:115">۱۱۵</a> · مرکز مسمومیت <a href="tel:1490">۱۴۹۰</a></p><button id="okAl">فهمیدم</button>';
+  a.innerHTML='<div class="x">'+(lvl>=3?"☠":"⚠")+'</div><h2>'+(lvl>=3?"خطر! گیاه بسیار سمی":"هشدار! گیاه سمی")+'</h2><p style="font-size:19px"><b>'+esc(name)+'</b></p><p>'+esc(note)+'</p><p>به آن دست نزنید، نخورید و کودکان و حیوانات را دور کنید.</p><p><b>در صورت خوردن یا تماس، فوراً تماس بگیرید:</b></p>'+CALLS+'<button id="okAl">فهمیدم</button>';
   a.hidden=false;
   try{if(navigator.vibrate)navigator.vibrate([300,150,300])}catch(e){}
   $("okAl").onclick=function(){a.hidden=true};
