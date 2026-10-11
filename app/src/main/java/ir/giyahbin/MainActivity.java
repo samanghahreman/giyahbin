@@ -84,6 +84,9 @@ public class MainActivity extends Activity {
     /** پل جاوااسکریپت → اندروید */
     class Bridge {
         @JavascriptInterface
+        public boolean hasKey() { return !BuildConfig.PLANTNET_KEY.isEmpty(); }
+
+        @JavascriptInterface
         public void open(String url) {
             if (url == null || !url.startsWith("https://")) return;
             runOnUiThread(() -> {
@@ -93,7 +96,7 @@ public class MainActivity extends Activity {
 
         @JavascriptInterface
         public void identify(String source, String key) {
-            apiKey = key == null ? "" : key;
+            apiKey = (key == null || key.trim().isEmpty()) ? BuildConfig.PLANTNET_KEY : key.trim();
             runOnUiThread(() -> {
                 try {
                     if ("camera".equals(source)) {

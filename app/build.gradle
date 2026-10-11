@@ -7,9 +7,12 @@ android {
         applicationId 'ir.giyahbin.app'
         minSdk 29
         targetSdk 35
-        versionCode 2
-        versionName '1.0.1'
+        versionCode 3
+        versionName '1.0.2'
         resConfigs 'fa', 'en'
+        // کلید رایگان Pl@ntNet سازنده (اختیاری): -PplantnetKey=... یا متغیر محیطی PLANTNET_KEY
+        def pk = (project.findProperty('plantnetKey') ?: System.getenv('PLANTNET_KEY') ?: '').toString()
+        buildConfigField 'String', 'PLANTNET_KEY', '"' + pk.replace('"', '') + '"'
     }
     buildTypes {
         release {
@@ -20,6 +23,7 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    buildFeatures { buildConfig true }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17

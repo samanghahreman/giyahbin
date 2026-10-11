@@ -5,7 +5,7 @@ var TAG={3:"کشنده",2:"سمی",1:"کم‌خطر",0:"بی‌خطر"};
 var LV={3:["بسیار خطرناک – کشنده","☠"],2:["سمی","⚠"],1:["کم‌خطر / تحریک‌کننده","!"],0:["بی‌خطر (با شناسایی قطعی)","✔"]};
 var DANGER_FAM={Apiaceae:"خانوادهٔ چتریان (هویج، شوکران): چند گونهٔ آن کشنده است",Solanaceae:"خانوادهٔ بادمجانیان: بسیاری از گونه‌ها سمی‌اند",Ranunculaceae:"خانوادهٔ آلاله: بیشتر گونه‌ها سمی‌اند",Apocynaceae:"خانوادهٔ خرزهره: اغلب سمی",Euphorbiaceae:"خانوادهٔ فرفیون: شیره تحریک‌کننده/سمی",Araceae:"خانوادهٔ آروم: کریستال‌های سوزش‌آور",Papaveraceae:"خانوادهٔ خشخاش: آلکالوئیدهای سمی",Amaryllidaceae:"پیازدارها: برخی سمی و برخی خوراکی‌اند",Colchicaceae:"سورنجان: بسیار سمی",Melanthiaceae:"خانوادهٔ خربق: سمی",Amanitaceae:"قارچ‌های آمانیتا: بسیار خطرناک"};
 var KEY="gb_key";
-var cur=null,tt;
+var cur=null,tt,usedBuiltin=false;
 function toast(m){var t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},4000)}
 
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
@@ -132,14 +132,16 @@ window.onIdResult=function(s){
   var r;try{r=JSON.parse(s)}catch(e){return}
   if(r.cancel)return;
   if(!r.ok){
-    var m={nokey:"ابتدا در ⚙ تنظیمات، کلید رایگان Pl@ntNet را وارد کنید.",net:"اینترنت در دسترس نیست. می‌توانید از فهرست آفلاین گیاهان استفاده کنید.",404:"گیاهی در عکس پیدا نشد.",401:"کلید API نامعتبر است.",429:"سهمیهٔ امروز شناسایی تمام شد.",app:"برنامهٔ دوربین/گالری در دسترس نیست.",img:"خواندن عکس ممکن نشد."}[r.err]||("خطا: "+r.err);
-    toast(m);if(r.err==="nokey"||r.err==="401"){show("settings")}return;
+    var m={nokey:"ابتدا در ⚙ تنظیمات، کلید رایگان Pl@ntNet را وارد کنید.",net:"اینترنت در دسترس نیست. می‌توانید از فهرست آفلاین گیاهان استفاده کنید.",404:"گیاهی در عکس پیدا نشد.",401:usedBuiltin?"سرویس شناسایی موقتاً در دسترس نیست. فهرست آفلاین را ببینید.":"کلید API نامعتبر است.",429:"سهمیهٔ امروز شناسایی تمام شد. فردا دوباره امتحان کنید.",app:"برنامهٔ دوربین/گالری در دسترس نیست.",img:"خواندن عکس ممکن نشد."}[r.err]||("خطا: "+r.err);
+    toast(m);if(r.err==="nokey"||(r.err==="401"&&!usedBuiltin)){show("settings")}return;
   }
   result(r.thumb,r.data);
 };
 function go(src){
   var key=(ls(KEY)||"").trim();
-  if(!key){toast("ابتدا کلید رایگان Pl@ntNet را وارد کنید");show("settings");return}
+  var built=!!(window.Native&&window.Native.hasKey&&window.Native.hasKey());
+  if(!key&&!built){toast("ابتدا کلید رایگان Pl@ntNet را وارد کنید");show("settings");return}
+  usedBuiltin=!key;
   if(window.Native){$("busy").hidden=false;window.Native.identify(src,key)}
 }
 /* ---------- رویدادها ---------- */
@@ -156,6 +158,7 @@ $("getKey").onclick=function(){if(window.Native)window.Native.open("https://my.p
 $("saveKey").onclick=function(){ls(KEY,$("key").value.trim());toast("ذخیره شد ✔");show("home")};
 $("prov").onchange=render;$("lvl").onchange=render;
 $("q").oninput=render;
+if(window.Native&&window.Native.hasKey&&window.Native.hasKey())$("keyLbl").textContent="کلید شخصی Pl@ntNet (اختیاری – معمولاً لازم نیست)";
 $("ver").textContent="گیاه‌بین · "+PLANTS.length+" گیاه · "+PROVINCES.length+" استان";
 window.gbBack=function(){
   if(!$("alert").hidden){$("alert").hidden=true;return true}
