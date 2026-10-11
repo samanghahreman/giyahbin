@@ -93,8 +93,8 @@ function guideRes(){
   else{
     h+='<div class="banner b'+(tox?3:1)+'">'+(tox?"☠ "+tox+" مورد از "+rows.length+" گیاه مشابه سمی/خطرناک است؛ تا اطمینان کامل، آن را سمی فرض کنید.":"! مشابه‌ها بی‌خطر یا کم‌خطرند، اما به‌هیچ‌وجه به خوردنش اطمینان نکنید.")+'</div>';
     if(tox)h+=CALLS;
-    h+='<ul>'+rows.slice(0,15).map(function(r){return row(r.p)}).join("")+'</ul>';
-    if(rows.length>15)h+='<p class="hint">+'+(rows.length-15)+' مورد دیگر؛ ویژگی‌های بیشتری انتخاب کنید.</p>';
+    h+='<ul>'+rows.slice(0,40).map(function(r){return row(r.p)}).join("")+'</ul>';
+    if(rows.length>40)h+='<p class="hint">+'+(rows.length-40)+' مورد دیگر؛ ویژگی‌های بیشتری انتخاب کنید.</p>';
   }
   $("gres").innerHTML=h+'<p class="disc">نتیجه بر پایهٔ ویژگی‌های انتخابی شماست و تخمینی است؛ جایگزین نظر کارشناس نیست.</p>';
 }
