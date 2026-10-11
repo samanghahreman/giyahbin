@@ -1,0 +1,29 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'ir.giyahbin'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'ir.giyahbin.app'
+        minSdk 29
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.0'
+        resConfigs 'fa', 'en'
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // ط§ظ…ط¶ط§غŒ ط¯غŒط¨ط§ع¯ ط¨ط±ط§غŒ ظ†طµط¨ ظ…ط³طھظ‚غŒظ…ط› ط¨ط±ط§غŒ ط§ظ†طھط´ط§ط± ط¯ط± ظپط±ظˆط´ع¯ط§ظ‡طŒ ع©ظ„غŒط¯ ط®ظˆط¯طھط§ظ† ط±ط§ طھظ†ط¸غŒظ… ع©ظ†غŒط¯
+            signingConfig signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+        packaging { resources { excludes += ['META-INF/**'] } }
+}
+

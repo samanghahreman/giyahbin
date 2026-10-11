@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1b5e3b">
+<title>گیاه‌بین</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>🌿 گیاه‌بین</h1>
+  <button id="btnSet" class="ic" aria-label="تنظیمات">⚙</button>
+</header>
+
+<main id="home">
+  <button id="btnCam" class="big">📷 عکس بگیر</button>
+  <button id="btnGal" class="alt">🖼 از گالری</button>
+
+  <div class="bar">
+    <select id="prov"><option value="">همهٔ استان‌ها</option></select>
+    <select id="lvl">
+      <option value="">همه</option>
+      <option value="d">فقط سمی ⚠</option>
+      <option value="s">بی‌خطر ✔</option>
+    </select>
+  </div>
+  <input id="q" type="search" placeholder="جستجوی نام گیاه…" autocomplete="off">
+  <p id="hint" class="hint"></p>
+  <ul id="list"></ul>
+</main>
+
+<section id="detail" hidden></section>
+
+<section id="settings" hidden>
+  <button class="back">← بازگشت</button>
+  <h2>تنظیمات</h2>
+  <label>کلید API پل‌نت (Pl@ntNet) – برای شناسایی با عکس
+    <input id="key" type="text" dir="ltr" placeholder="کلید رایگان از my.plantnet.org" autocomplete="off">
+  </label>
+  <button id="saveKey" class="alt">ذخیره</button>
+  <p class="hint">کلید رایگان (۵۰۰ شناسایی در روز) را از <b>my.plantnet.org</b> بگیرید. عکس فقط برای شناسایی به پل‌نت فرستاده می‌شود و جایی ذخیره نمی‌شود.</p>
+  <h3>سلب مسئولیت</h3>
+  <p class="disc">این برنامه صرفاً برای اطلاع‌رسانی و بالا بردن آگاهی عمومی است. نتیجهٔ شناسایی تخمینی است و هرگز جایگزین نظر متخصص نیست. سازنده هیچ مسئولیتی در قبال استفاده یا آسیب ناشی از آن ندارد. <b>هیچ گیاه یا قارچ وحشی را بر پایهٔ این برنامه نخورید.</b></p>
+  <p class="disc">اورژانس: <a href="tel:115">۱۱۵</a> · مرکز اطلاعات مسمومیت: <a href="tel:1490">۱۴۹۰</a></p>
+  <p class="hint" id="ver"></p>
+</section>
+
+<div id="alert" hidden></div>
+<div id="busy" hidden><div class="spin"></div><p>در حال شناسایی…</p></div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
