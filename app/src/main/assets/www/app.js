@@ -55,7 +55,7 @@ function detail(x,extraBanner){
   $("detail").innerHTML=h;
   show("detail");
 }
-function show(id){["home","detail"].forEach(function(s){$(s).hidden=(s!==id)});window.scrollTo(0,0)}
+function show(id){["home","detail","consent"].forEach(function(s){$(s).hidden=(s!==id)});window.scrollTo(0,0)}
 
 /* ---------- تطبیق نتیجهٔ شناسایی ---------- */
 function find(sci){
@@ -152,11 +152,16 @@ $("btnGal").onclick=function(){go("gallery")};
 $("prov").onchange=render;$("lvl").onchange=render;
 $("q").oninput=render;
 $("ver").textContent="گیاه‌بین · "+PLANTS.length+" گیاه · "+PROVINCES.length+" استان";
+$("agree").onchange=function(){$("goOn").disabled=!this.checked};
+$("goOn").onclick=function(){if($("agree").checked){ls("gb_ok1","1");show("home")}};
+$("quit").onclick=function(){if(window.Native&&window.Native.close)window.Native.close()};
 window.gbBack=function(){
+  if(!$("consent").hidden)return false;
   if(!$("alert").hidden){$("alert").hidden=true;return true}
   if(!$("busy").hidden)return true;
   if(!$("home").hidden)return false;
   show("home");return true;
 };
 fill();render();
+show(ls("gb_ok1")==="1"?"home":"consent");
 })();

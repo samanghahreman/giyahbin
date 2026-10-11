@@ -12,7 +12,7 @@
   <h1>🌿 گیاه‌بین</h1>
 </header>
 
-<main id="home">
+<main id="home" hidden>
   <div class="sos">🆘 مسمومیت؟ <a href="tel:115">اورژانس ۱۱۵</a> · <a href="tel:1490">مرکز مسمومیت ۱۴۹۰</a></div>
   <button id="btnCam" class="big">📷 عکس بگیر</button>
   <button id="btnGal" class="alt">🖼 از گالری</button>
@@ -34,6 +34,22 @@
 </main>
 
 <section id="detail" hidden></section>
+
+<section id="consent" hidden>
+  <h2>قبل از شروع، لطفاً بخوانید</h2>
+  <p class="disc">💚 <b>«گیاه‌بین» پروژه‌ای عام‌المنفعه برای ارتقای شناخت و بالا بردن سطح آگاهی عمومی جامعه است.</b> این برنامه همیشه رایگان می‌ماند؛ هرگز اشتراک، پرداخت، خرید درون‌برنامه‌ای یا تبلیغ نخواهد داشت.</p>
+  <p class="disc">⚠ <b>این برنامه صرفاً برای اطلاع‌رسانی و آگاهی‌بخشی است.</b></p>
+  <ul class="rules">
+    <li>اطلاعات و نتایج شناسایی <b>تخمینی</b> است و ممکن است اشتباه یا ناقص باشد.</li>
+    <li>جایگزین نظر پزشک، کارشناس یا دامپزشک <b>نیست</b>.</li>
+    <li>سازنده <b>هیچ مسئولیتی</b> در قبال استفاده، تصمیم یا آسیب ناشی از اطلاعات برنامه ندارد.</li>
+    <li><b>هیچ گیاه یا قارچ وحشی را فقط بر پایهٔ این برنامه نخورید.</b> در شک، آن را سمی فرض کنید.</li>
+    <li>در مسمومیت: اورژانس <a href="tel:115">۱۱۵</a> · مرکز مسمومیت <a href="tel:1490">۱۴۹۰</a></li>
+  </ul>
+  <label class="chk"><input type="checkbox" id="agree"> <span>خواندم و می‌پذیرم که این برنامه فقط برای اطلاع‌رسانی است و مسئولیت استفاده با خودم است.</span></label>
+  <button id="goOn" class="big" disabled>ادامه</button>
+  <button id="quit" class="alt">نمی‌پذیرم / خروج</button>
+</section>
 
 <div id="alert" hidden></div>
 <div id="toast" hidden></div>

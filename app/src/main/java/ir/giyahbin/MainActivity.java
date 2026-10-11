@@ -84,6 +84,9 @@ public class MainActivity extends Activity {
     /** پل جاوااسکریپت → اندروید */
     class Bridge {
         @JavascriptInterface
+        public void close() { runOnUiThread(() -> finish()); }
+
+        @JavascriptInterface
         public boolean hasKey() { return !BuildConfig.PLANTNET_KEY.isEmpty(); }
 
         @JavascriptInterface

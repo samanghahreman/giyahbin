@@ -1,5 +1,10 @@
 plugins { id 'com.android.application' }
 
+def sign = new Properties()
+def signFile = new File(System.getProperty('user.home'), '.giyahbin/signing.properties')
+if (signFile.exists()) signFile.withInputStream { sign.load(it) }
+def sv = { k -> (System.getenv(k) ?: sign.getProperty(k) ?: '') }
+
 android {
     namespace 'ir.giyahbin'
     compileSdk 35
@@ -7,12 +12,22 @@ android {
         applicationId 'ir.giyahbin.app'
         minSdk 29
         targetSdk 35
-        versionCode 6
-        versionName '1.0.5'
+        versionCode 7
+        versionName '1.0.6'
         resConfigs 'fa', 'en'
         // کلید رایگان Pl@ntNet سازنده (اختیاری): -PplantnetKey=... یا متغیر محیطی PLANTNET_KEY
         def pk = (project.findProperty('plantnetKey') ?: System.getenv('PLANTNET_KEY') ?: '').toString()
         buildConfigField 'String', 'PLANTNET_KEY', '"' + pk.replace('"', '') + '"'
+    }
+    signingConfigs {
+        release {
+            if (sv('KEYSTORE_PATH')) {
+                storeFile file(sv('KEYSTORE_PATH'))
+                storePassword sv('KEYSTORE_PASSWORD')
+                keyAlias sv('KEY_ALIAS')
+                keyPassword sv('KEYSTORE_PASSWORD')
+            }
+        }
     }
     buildTypes {
         release {
@@ -20,7 +35,7 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             // ط§ظ…ط¶ط§غŒ ط¯غŒط¨ط§ع¯ ط¨ط±ط§غŒ ظ†طµط¨ ظ…ط³طھظ‚غŒظ…ط› ط¨ط±ط§غŒ ط§ظ†طھط´ط§ط± ط¯ط± ظپط±ظˆط´ع¯ط§ظ‡طŒ ع©ظ„غŒط¯ ط®ظˆط¯طھط§ظ† ط±ط§ طھظ†ط¸غŒظ… ع©ظ†غŒط¯
-            signingConfig signingConfigs.debug
+            signingConfig sv('KEYSTORE_PATH') ? signingConfigs.release : signingConfigs.debug
         }
     }
     buildFeatures { buildConfig true }
