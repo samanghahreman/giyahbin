@@ -84,6 +84,14 @@ public class MainActivity extends Activity {
     /** پل جاوااسکریپت → اندروید */
     class Bridge {
         @JavascriptInterface
+        public void open(String url) {
+            if (url == null || !url.startsWith("https://")) return;
+            runOnUiThread(() -> {
+                try { startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url))); } catch (Exception ignored) {}
+            });
+        }
+
+        @JavascriptInterface
         public void identify(String source, String key) {
             apiKey = key == null ? "" : key;
             runOnUiThread(() -> {

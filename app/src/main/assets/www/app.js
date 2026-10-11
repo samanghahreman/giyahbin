@@ -1,10 +1,12 @@
 (function(){
 "use strict";
 var $=function(i){return document.getElementById(i)};
+var TAG={3:"کشنده",2:"سمی",1:"کم‌خطر",0:"بی‌خطر"};
 var LV={3:["بسیار خطرناک – کشنده","☠"],2:["سمی","⚠"],1:["کم‌خطر / تحریک‌کننده","!"],0:["بی‌خطر (با شناسایی قطعی)","✔"]};
 var DANGER_FAM={Apiaceae:"خانوادهٔ چتریان (هویج، شوکران): چند گونهٔ آن کشنده است",Solanaceae:"خانوادهٔ بادمجانیان: بسیاری از گونه‌ها سمی‌اند",Ranunculaceae:"خانوادهٔ آلاله: بیشتر گونه‌ها سمی‌اند",Apocynaceae:"خانوادهٔ خرزهره: اغلب سمی",Euphorbiaceae:"خانوادهٔ فرفیون: شیره تحریک‌کننده/سمی",Araceae:"خانوادهٔ آروم: کریستال‌های سوزش‌آور",Papaveraceae:"خانوادهٔ خشخاش: آلکالوئیدهای سمی",Amaryllidaceae:"پیازدارها: برخی سمی و برخی خوراکی‌اند",Colchicaceae:"سورنجان: بسیار سمی",Melanthiaceae:"خانوادهٔ خربق: سمی",Amanitaceae:"قارچ‌های آمانیتا: بسیار خطرناک"};
 var KEY="gb_key";
-var cur=null;
+var cur=null,tt;
+function toast(m){var t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(function(){t.hidden=true},4000)}
 
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function norm(s){return String(s||"").toLowerCase().replace(/ي/g,"ی").replace(/ك/g,"ک").replace(/[‌ً-ْ]/g,"").trim()}
@@ -31,7 +33,7 @@ function render(){
   var n=rows.filter(function(x){return x.lvl>=2}).length;
   $("hint").textContent=rows.length+" گیاه"+(z?" · "+n+" مورد سمی در منطقهٔ «"+ZONES[z]+"» (پراکنش تقریبی)":"");
   var h="";
-  rows.forEach(function(x){h+='<li class="l'+x.lvl+'" data-id="'+x.id+'"><div><b>'+esc(x.fa)+'</b><small>'+esc(x.sci.split(";")[0])+'</small></div><span class="tag t'+x.lvl+'">'+LV[x.lvl][1]+" "+LV[x.lvl][0].split(" ")[0]+'</span></li>'});
+  rows.forEach(function(x){h+='<li class="l'+x.lvl+'" data-id="'+x.id+'"><div><b>'+esc(x.fa)+'</b><small>'+esc(x.sci.split(";")[0])+'</small></div><span class="tag t'+x.lvl+'">'+LV[x.lvl][1]+" "+TAG[x.lvl]+'</span></li>'});
   $("list").innerHTML=h||'<li>موردی پیدا نشد. اگر گیاه ناشناخته است، آن را سمی فرض کنید.</li>';
 }
 
@@ -131,13 +133,13 @@ window.onIdResult=function(s){
   if(r.cancel)return;
   if(!r.ok){
     var m={nokey:"ابتدا در ⚙ تنظیمات، کلید رایگان Pl@ntNet را وارد کنید.",net:"اینترنت در دسترس نیست. می‌توانید از فهرست آفلاین گیاهان استفاده کنید.",404:"گیاهی در عکس پیدا نشد.",401:"کلید API نامعتبر است.",429:"سهمیهٔ امروز شناسایی تمام شد.",app:"برنامهٔ دوربین/گالری در دسترس نیست.",img:"خواندن عکس ممکن نشد."}[r.err]||("خطا: "+r.err);
-    alert(m);if(r.err==="nokey"){show("settings")}return;
+    toast(m);if(r.err==="nokey"||r.err==="401"){show("settings")}return;
   }
   result(r.thumb,r.data);
 };
 function go(src){
   var key=(ls(KEY)||"").trim();
-  if(!key){alert("ابتدا در ⚙ تنظیمات، کلید رایگان Pl@ntNet را وارد کنید.");show("settings");return}
+  if(!key){toast("ابتدا کلید رایگان Pl@ntNet را وارد کنید");show("settings");return}
   if(window.Native){$("busy").hidden=false;window.Native.identify(src,key)}
 }
 /* ---------- رویدادها ---------- */
@@ -150,7 +152,8 @@ document.addEventListener("click",function(e){
 $("btnCam").onclick=function(){go("camera")};
 $("btnGal").onclick=function(){go("gallery")};
 $("btnSet").onclick=function(){$("key").value=ls(KEY)||"";show("settings")};
-$("saveKey").onclick=function(){ls(KEY,$("key").value.trim());alert("ذخیره شد");show("home")};
+$("getKey").onclick=function(){if(window.Native)window.Native.open("https://my.plantnet.org/")};
+$("saveKey").onclick=function(){ls(KEY,$("key").value.trim());toast("ذخیره شد ✔");show("home")};
 $("prov").onchange=render;$("lvl").onchange=render;
 $("q").oninput=render;
 $("ver").textContent="گیاه‌بین · "+PLANTS.length+" گیاه · "+PROVINCES.length+" استان";
