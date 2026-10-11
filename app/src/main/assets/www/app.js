@@ -139,22 +139,7 @@ function go(src){
   var key=(ls(KEY)||"").trim();
   if(!key){alert("ابتدا در ⚙ تنظیمات، کلید رایگان Pl@ntNet را وارد کنید.");show("settings");return}
   if(window.Native){$("busy").hidden=false;window.Native.identify(src,key)}
-  else webPick(key);
 }
-function webPick(key){ /* نسخهٔ وب/آزمایشی */
-  var i=document.createElement("input");i.type="file";i.accept="image/*";
-  i.onchange=function(){
-    var f=i.files[0];if(!f)return;$("busy").hidden=false;
-    var fd=new FormData();fd.append("images",f);fd.append("organs","auto");
-    var th=URL.createObjectURL(f);
-    fetch("https://my-api.plantnet.org/v2/identify/all?nb-results=5&api-key="+encodeURIComponent(key),{method:"POST",body:fd})
-      .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
-      .then(function(d){$("busy").hidden=true;result(th,d)})
-      .catch(function(e){window.onIdResult(JSON.stringify({ok:false,err:String(e)==="TypeError: Failed to fetch"?"net":e}))});
-  };
-  i.click();
-}
-
 /* ---------- رویدادها ---------- */
 document.addEventListener("click",function(e){
   var t=e.target;

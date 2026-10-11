@@ -11,8 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: '17' }
-      - uses: android-actions/setup-android@v3
-      - run: chmod +x gradlew && ./gradlew assembleRelease --no-daemon
+      - run: chmod +x gradlew && ANDROID_HOME=$ANDROID_SDK_ROOT ./gradlew assembleRelease --no-daemon
       - run: cp app/build/outputs/apk/release/app-release.apk giyahbin.apk
       - uses: actions/upload-artifact@v4
         with: { name: giyahbin-apk, path: giyahbin.apk }
