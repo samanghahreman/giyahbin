@@ -10,7 +10,6 @@
 <body>
 <header>
   <h1>🌿 گیاه‌بین</h1>
-  <button id="btnSet" class="ic" aria-label="تنظیمات">⚙</button>
 </header>
 
 <main id="home">
@@ -29,25 +28,12 @@
   <input id="q" type="search" placeholder="جستجوی نام گیاه…" autocomplete="off">
   <p id="hint" class="hint"></p>
   <ul id="list"></ul>
+  <p class="disc">💚 «گیاه‌بین» پروژه‌ای عام‌المنفعه برای آگاهی عمومی است و <b>همیشه رایگان</b> می‌ماند؛ بدون اشتراک، پرداخت و تبلیغ.</p>
+  <p class="disc">⚠ این برنامه صرفاً برای اطلاع‌رسانی و بالا بردن آگاهی عمومی است. نتایج تخمینی‌اند و جایگزین نظر متخصص نیستند؛ سازنده هیچ مسئولیتی در قبال استفاده یا آسیب ناشی از آن ندارد. <b>هیچ گیاه یا قارچ وحشی را بر پایهٔ این برنامه نخورید.</b> در شک، آن را سمی فرض کنید.</p>
+  <p class="hint" id="ver"></p>
 </main>
 
 <section id="detail" hidden></section>
-
-<section id="settings" hidden>
-  <button class="back">← بازگشت</button>
-  <h2>تنظیمات</h2>
-  <p class="disc">💚 تعهد: «گیاه‌بین» یک پروژهٔ عام‌المنفعه برای آگاهی عمومی است و <b>همیشه رایگان</b> می‌ماند؛ هرگز اشتراک، پرداخت، خرید درون‌برنامه‌ای یا تبلیغ نخواهد داشت.</p>
-  <label><span id="keyLbl">کلید API پل‌نت (Pl@ntNet) – برای شناسایی با عکس</span>
-    <input id="key" type="text" dir="ltr" placeholder="کلید رایگان از my.plantnet.org" autocomplete="off">
-  </label>
-  <button id="saveKey" class="big">ذخیره</button>
-  <button id="getKey" class="alt">🔑 دریافت کلید رایگان از سایت Pl@ntNet</button>
-  <p class="hint">کلید رایگان (۵۰۰ شناسایی در روز) را از <b>my.plantnet.org</b> بگیرید. عکس فقط برای شناسایی به پل‌نت فرستاده می‌شود و جایی ذخیره نمی‌شود.</p>
-  <h3>سلب مسئولیت</h3>
-  <p class="disc">این برنامه صرفاً برای اطلاع‌رسانی و بالا بردن آگاهی عمومی است. نتیجهٔ شناسایی تخمینی است و هرگز جایگزین نظر متخصص نیست. سازنده هیچ مسئولیتی در قبال استفاده یا آسیب ناشی از آن ندارد. <b>هیچ گیاه یا قارچ وحشی را بر پایهٔ این برنامه نخورید.</b></p>
-  <p class="disc">اورژانس: <a href="tel:115">۱۱۵</a> · مرکز اطلاعات مسمومیت: <a href="tel:1490">۱۴۹۰</a></p>
-  <p class="hint" id="ver"></p>
-</section>
 
 <div id="alert" hidden></div>
 <div id="toast" hidden></div>
